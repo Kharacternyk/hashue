@@ -4,12 +4,14 @@ import {ColorChip} from "./color-chip";
 
 export const Card = ({ query }) => {
   const [colors, setColors] = useState(null);
+  const trimmedQuery = query.trim();
+
   useEffect(() => {
     setColors(null);
 
     if (query.length > 0) {
       crypto.subtle
-        .digest("SHA-256", encoder.encode(query).buffer)
+        .digest("SHA-256", encoder.encode(trimmedQuery).buffer)
         .then((hash) => {
           setColors(
             [toHex(hash.slice(0, 3)), toHex(hash.slice(-3))].map((color) => (
@@ -18,7 +20,7 @@ export const Card = ({ query }) => {
           );
         });
     }
-  }, [query]);
+  }, [trimmedQuery]);
 
   if (colors === null) {
     return null;
