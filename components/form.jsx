@@ -1,15 +1,22 @@
-import {Stack, TextField} from "@mui/material";
+import {FormControlLabel, Stack, Switch, TextField} from "@mui/material";
 import {useCallback, useState} from "react";
 import {ColorGrid} from "./color-grid";
 
 export const Form = () => {
   const [query, setQuery] = useState("");
-  const inputHandler = useCallback((event) => setQuery(event.target.value));
+  const [orderedByHue, setOrderedByHue] = useState(false);
+  const queryHandler = useCallback((event) => setQuery(event.target.value));
+  const hueHandler = useCallback((event) =>
+    setOrderedByHue(event.target.checked)
+  );
+
+  const hueSwitch = <Switch checked={orderedByHue} onChange={hueHandler} />;
 
   return (
     <Stack>
-      <TextField value={query} onChange={inputHandler} />
-      <ColorGrid query={query} />
+      <TextField value={query} onChange={queryHandler} />
+      <FormControlLabel control={hueSwitch} label="Order by hue" />
+      <ColorGrid query={query} orderedByHue={orderedByHue} />
     </Stack>
   );
 };
