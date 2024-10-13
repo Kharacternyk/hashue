@@ -13,7 +13,7 @@ export const Form = () => {
   const hueSwitch = <Switch checked={orderedByHue} onChange={hueHandler} />;
 
   return (
-    <Stack>
+    <Stack gap={1}>
       <TextField value={query} onChange={queryHandler} />
       <FormControlLabel control={hueSwitch} label="Order by hue" />
       <ColorGrid query={query} orderedByHue={orderedByHue} />
