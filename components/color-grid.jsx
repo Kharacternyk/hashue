@@ -2,7 +2,7 @@ import {Stack} from "@mui/material";
 import {useEffect, useState} from "react";
 import {ColorChip} from "./color-chip";
 
-export const Card = ({ query }) => {
+export const ColorGrid = ({ query }) => {
   const [chips, setChips] = useState(defaultChips);
   const trimmedQuery = query.trim();
 

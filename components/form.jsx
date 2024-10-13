@@ -1,6 +1,6 @@
 import {Stack, TextField} from "@mui/material";
 import {useCallback, useState} from "react";
-import {Card} from "./card";
+import {ColorGrid} from "./color-grid";
 
 export const Form = () => {
   const [query, setQuery] = useState("");
@@ -9,7 +9,7 @@ export const Form = () => {
   return (
     <Stack>
       <TextField value={query} onChange={inputHandler} />
-      <Card query={query} />
+      <ColorGrid query={query} />
     </Stack>
   );
 };
