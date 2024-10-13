@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {ColorChip} from "./color-chip";
 
 export const Card = ({ query }) => {
-  const [chips, setChips] = useState([]);
+  const [chips, setChips] = useState(defaultChips);
   const trimmedQuery = query.trim();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const Card = ({ query }) => {
           setChips(newChips);
         });
     } else {
-      setChips([]);
+      setChips(defaultChips);
     }
   }, [trimmedQuery]);
 
@@ -38,6 +38,12 @@ export const Card = ({ query }) => {
 
   return <Stack>{rows}</Stack>;
 };
+
+const defaultChips = [];
+
+for (let i = 0; i < 30; ++i) {
+  defaultChips.push(<ColorChip color="#000000" key={i} />);
+}
 
 const toHex = (buffer) =>
   "#" +
