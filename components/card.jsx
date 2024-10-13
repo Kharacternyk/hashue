@@ -1,36 +1,38 @@
-import {Paper, Stack} from "@mui/material";
+import {Stack} from "@mui/material";
 import {useEffect, useState} from "react";
 import {ColorChip} from "./color-chip";
 
 export const Card = ({ query }) => {
-  const [colors, setColors] = useState(null);
+  const [chips, setChips] = useState([]);
   const trimmedQuery = query.trim();
 
   useEffect(() => {
-    setColors(null);
-
     if (query.length > 0) {
       crypto.subtle
         .digest("SHA-256", encoder.encode(trimmedQuery).buffer)
         .then((hash) => {
-          setColors(
-            [toHex(hash.slice(0, 3)), toHex(hash.slice(-3))].map((color) => (
-              <ColorChip color={color} />
-            ))
-          );
+          const newChips = [];
+
+          for (let i = 0; i < hash.byteLength - 2; ++i) {
+            const color = toHex(hash.slice(i, i + 3));
+
+            newChips.push(<ColorChip color={color} />);
+          }
+
+          setChips(newChips);
         });
+    } else {
+      setChips([]);
     }
   }, [trimmedQuery]);
 
-  if (colors === null) {
-    return null;
+  const rows = [];
+
+  for (let i = 0; i < chips.length - 2; i += 3) {
+    rows.push(<Stack direction="row">{chips.slice(i, i + 3)}</Stack>);
   }
 
-  return (
-    <Paper elevation={16}>
-      <Stack direction="row">{colors}</Stack>
-    </Paper>
-  );
+  return <Stack>{rows}</Stack>;
 };
 
 const toHex = (buffer) =>
