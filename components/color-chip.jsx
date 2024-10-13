@@ -5,7 +5,7 @@ export const ColorChip = memo(({ color }) => {
   const style = { bgcolor: color };
   const avatar = <Avatar sx={style}> </Avatar>;
   const label = (
-    <Typography fontFamily="IBM Plex Mono" fontStyle="italic" fontWeigth={300}>
+    <Typography fontFamily="IBM Plex Mono" fontStyle="italic">
       {color}
     </Typography>
   );

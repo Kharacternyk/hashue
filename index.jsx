@@ -1,4 +1,4 @@
-import "@fontsource/ibm-plex-mono/latin-500-italic.css";
+import "@fontsource/ibm-plex-mono/latin-400-italic.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
