@@ -16,7 +16,7 @@ export const Card = ({ query }) => {
           for (let i = 0; i < hash.byteLength - 2; ++i) {
             const color = toHex(hash.slice(i, i + 3));
 
-            newChips.push(<ColorChip color={color} />);
+            newChips.push(<ColorChip color={color} key={i} />);
           }
 
           setChips(newChips);
@@ -29,7 +29,11 @@ export const Card = ({ query }) => {
   const rows = [];
 
   for (let i = 0; i < chips.length - 2; i += 3) {
-    rows.push(<Stack direction="row">{chips.slice(i, i + 3)}</Stack>);
+    rows.push(
+      <Stack direction="row" key={i}>
+        {chips.slice(i, i + 3)}
+      </Stack>
+    );
   }
 
   return <Stack>{rows}</Stack>;
