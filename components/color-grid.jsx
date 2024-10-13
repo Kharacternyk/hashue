@@ -76,6 +76,7 @@ for (let i = 0; i < 30; ++i) {
 }
 
 const toHex = (rgb) =>
-  "#" + rgb.map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  "#" +
+  rgb.map((byte) => byte.toString(16).toUpperCase().padStart(2, "0")).join("");
 
 const encoder = new TextEncoder();
