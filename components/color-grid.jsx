@@ -8,9 +8,15 @@ export const ColorGrid = ({ query }) => {
 
   useEffect(() => {
     if (query.length > 0) {
+      const token = { cancelled: false };
+
       crypto.subtle
         .digest("SHA-256", encoder.encode(trimmedQuery).buffer)
         .then((hash) => {
+          if (token.cancelled) {
+            return;
+          }
+
           const newChips = [];
 
           for (let i = 0; i < hash.byteLength - 2; ++i) {
@@ -21,6 +27,10 @@ export const ColorGrid = ({ query }) => {
 
           setChips(newChips);
         });
+
+      return () => {
+        token.cancelled = true;
+      };
     } else {
       setChips(defaultChips);
     }
