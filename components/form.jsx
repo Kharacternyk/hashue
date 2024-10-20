@@ -4,7 +4,7 @@ import {useColorQuery} from "../hooks/use-color-query";
 import {ColorGrid} from "./color-grid";
 
 export const Form = () => {
-  const { queryString, queryBytes, setQueryString } = useColorQuery("sha256");
+  const { queryString, queryBytes, setQueryString } = useColorQuery();
   const [orderedByHue, setOrderedByHue] = useState(false);
   const queryHandler = useCallback((event) => {
     setQueryString(event.target.value);
