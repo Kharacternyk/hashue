@@ -3,7 +3,8 @@ import {toHex} from "../functions/to-hex";
 
 export const useColorQuery = () => {
   const [isFirstInteraction, setIsFirstInteraction] = useState(true);
-  const [{ queryString, queryBytes }, setQuery] = useState(getQueryFromUrl);
+  const [{ queryString, trimmedQueryString, queryBytes }, setQuery] =
+    useState(getQueryFromUrl);
 
   useEffect(() => {
     const restoreQueryString = () => {
@@ -20,13 +21,15 @@ export const useColorQuery = () => {
   return {
     queryString,
     queryBytes,
+    trimmedQueryString,
     setQueryString: (newQueryString) => {
       const trimmedNewQueryString = newQueryString.trim();
 
-      if (trimmedNewQueryString === queryString.trim()) {
+      if (trimmedNewQueryString === trimmedQueryString) {
         setQuery({
           queryBytes,
           queryString: newQueryString,
+          trimmedQueryString,
         });
         return;
       }
@@ -48,6 +51,7 @@ export const useColorQuery = () => {
       setQuery({
         queryString: newQueryString,
         queryBytes: newQueryBytes,
+        trimmedQueryString: trimmedNewQueryString,
       });
     },
   };
@@ -92,17 +96,26 @@ const getQueryFromUrl = () => {
     return emptyQuery;
   }
 
+  const trimmedQueryString = queryString.trim();
+
   return {
-    queryString,
-    queryBytes,
+    trimmedQueryString,
+    queryString: trimmedQueryString,
+    queryBytes:
+      trimmedQueryString === queryString
+        ? queryBytes
+        : encoder.encode(trimmedQueryString),
   };
 };
 
 const getSegments = (pathname) =>
   pathname.split("/").filter((segment) => segment.length > 0);
 const prefixSegments = ["sha256"];
-const emptyBytes = new Uint8Array();
-const emptyQuery = { queryString: "", queryBytes: emptyBytes };
+const emptyQuery = {
+  queryString: "",
+  trimmedQueryString: "",
+  queryBytes: new Uint8Array(),
+};
 const codecParameters = ["utf-8", { fatal: true }];
 const encoder = new TextEncoder(...codecParameters);
 const decoder = new TextDecoder(...codecParameters);
