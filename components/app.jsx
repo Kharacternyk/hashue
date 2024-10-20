@@ -2,10 +2,12 @@ import {
   CssBaseline,
   Paper,
   Stack,
+  SvgIcon,
   ThemeProvider,
   createTheme,
 } from "@mui/material";
 import {StrictMode} from "react";
+import Logo from "../logo.svg?react";
 import {Form} from "./form";
 
 export const App = () => {
@@ -17,6 +19,7 @@ export const App = () => {
         <Stack alignItems="center">
           <Paper elevation={2} sx={paperStyle}>
             <Stack p={2} alignItems="center">
+              <SvgIcon inheritViewBox component={Logo} sx={logoStyle} />
               <h1>Hashue</h1>
               <Form />
             </Stack>
@@ -32,3 +35,8 @@ const theme = createTheme({
     mode: "dark",
   },
 });
+
+const logoStyle = {
+  width: 96,
+  height: 96,
+};

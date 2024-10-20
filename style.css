@@ -1,0 +1,9 @@
+body {
+  background-image: url(./bg-logo.svg);
+  background-size: 96px;
+  background-color: #000000 !important;
+}
+
+noscript {
+  color: #ffffff;
+}
