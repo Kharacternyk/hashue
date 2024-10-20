@@ -3,12 +3,15 @@ import {toHex} from "../functions/to-hex";
 
 export const useColorQuery = () => {
   const [isFirstInteraction, setIsFirstInteraction] = useState(true);
-  const [{ queryString, trimmedQueryString, queryBytes }, setQuery] =
+  const [{ trimmedQueryString, queryBytes }, setQuery] =
     useState(getQueryFromUrl);
+  const [queryString, setQueryString] = useState(trimmedQueryString);
 
   useEffect(() => {
     const restoreQueryString = () => {
-      setQuery(getQueryFromUrl());
+      const query = getQueryFromUrl();
+      setQuery(query);
+      setQueryString(query.trimmedQueryString);
     };
 
     addEventListener("popstate", restoreQueryString);
@@ -17,20 +20,15 @@ export const useColorQuery = () => {
       removeEventListener("popstate", restoreQueryString);
     };
   }, []);
+  useEffect(() => {
+    const token = { id: null };
 
-  return {
-    queryString,
-    queryBytes,
-    trimmedQueryString,
-    setQueryString: (newQueryString) => {
-      const trimmedNewQueryString = newQueryString.trim();
+    token.id = setTimeout(() => {
+      token.id = null;
+
+      const trimmedNewQueryString = queryString.trim();
 
       if (trimmedNewQueryString === trimmedQueryString) {
-        setQuery({
-          queryBytes,
-          queryString: newQueryString,
-          trimmedQueryString,
-        });
         return;
       }
 
@@ -49,11 +47,23 @@ export const useColorQuery = () => {
       }
 
       setQuery({
-        queryString: newQueryString,
         queryBytes: newQueryBytes,
         trimmedQueryString: trimmedNewQueryString,
       });
-    },
+    }, 100);
+
+    return () => {
+      if (token.id !== null) {
+        clearTimeout(token.id);
+      }
+    };
+  }, [queryString]);
+
+  return {
+    queryString,
+    queryBytes,
+    trimmedQueryString,
+    setQueryString,
   };
 };
 
@@ -100,7 +110,6 @@ const getQueryFromUrl = () => {
 
   return {
     trimmedQueryString,
-    queryString: trimmedQueryString,
     queryBytes:
       trimmedQueryString === queryString
         ? queryBytes
@@ -112,7 +121,6 @@ const getSegments = (pathname) =>
   pathname.split("/").filter((segment) => segment.length > 0);
 const prefixSegments = ["sha256"];
 const emptyQuery = {
-  queryString: "",
   trimmedQueryString: "",
   queryBytes: new Uint8Array(),
 };
