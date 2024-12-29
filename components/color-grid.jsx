@@ -1,7 +1,7 @@
-import { Stack } from "@mui/material";
-import { useEffect, useState } from "react";
-import { toHex } from "../functions/to-hex";
-import { ColorChip } from "./color-chip";
+import {Stack} from "@mui/material";
+import {useEffect, useState} from "react";
+import {toHex} from "../lib/to-hex";
+import {ColorChip} from "./color-chip";
 
 export const ColorGrid = ({ queryBytes, orderedByHue = false }) => {
   const [colors, setColors] = useState(defaultColors);

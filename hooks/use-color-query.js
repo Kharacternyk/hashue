@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {toHex} from "../functions/to-hex";
+import {toHex} from "../lib/to-hex";
 
 export const useColorQuery = () => {
   const [isFirstInteraction, setIsFirstInteraction] = useState(true);
