@@ -1,4 +1,9 @@
-import {FormControlLabel, Stack, Switch, TextField} from "@mui/material";
+import {
+  FormControlLabel,
+  Stack,
+  Switch,
+  TextField
+} from "@mui/material";
 import {useCallback, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useColorQuery} from "../hooks/use-color-query";
@@ -27,7 +32,7 @@ export const Form = () => {
         value={queryString}
         onChange={queryHandler}
         variant="standard"
-        placeholder="Type here…"
+        placeholder="Type here to generate colors…"
       />
       <FormControlLabel control={hueSwitch} label="Order by hue" />
       <ColorGrid queryBytes={queryBytes} orderedByHue={orderedByHue} />
