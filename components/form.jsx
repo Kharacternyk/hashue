@@ -26,6 +26,7 @@ export const Form = () => {
       <TextField
         value={queryString}
         onChange={queryHandler}
+        variant="standard"
         placeholder="Type here…"
       />
       <FormControlLabel control={hueSwitch} label="Order by hue" />
