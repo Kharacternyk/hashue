@@ -1,12 +1,14 @@
 import {
+  createTheme,
   CssBaseline,
+  Fab,
   Paper,
   Stack,
   SvgIcon,
   ThemeProvider,
-  createTheme,
 } from "@mui/material";
 import {StrictMode} from "react";
+import GitHubLogo from "../images/github.svg?react";
 import Logo from "../images/logo.svg?react";
 import {Form} from "./form";
 
@@ -25,6 +27,14 @@ export const App = () => {
             </Stack>
           </Paper>
         </Stack>
+        <Fab
+          href="https://github.com/Kharacternyk/hashue"
+          size="small"
+          sx={fabStyle}
+          aria-label="GitHub"
+        >
+          <SvgIcon inheritViewBox component={GitHubLogo} />
+        </Fab>
       </ThemeProvider>
     </StrictMode>
   );
@@ -39,4 +49,12 @@ const theme = createTheme({
 const logoStyle = {
   width: 96,
   height: 96,
+};
+
+const fabStyle = {
+  position: "absolute",
+  right: 8,
+  top: 8,
+  background:
+    "linear-gradient(-45deg, #2780da, #2780da 50%, #10a540 50%, #10a540)",
 };
