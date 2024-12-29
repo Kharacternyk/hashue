@@ -7,7 +7,7 @@ import {
   createTheme,
 } from "@mui/material";
 import {StrictMode} from "react";
-import Logo from "../logo.svg?react";
+import Logo from "../images/logo.svg?react";
 import {Form} from "./form";
 
 export const App = () => {
