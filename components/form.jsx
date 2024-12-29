@@ -23,7 +23,11 @@ export const Form = () => {
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <TextField value={queryString} onChange={queryHandler} />
+      <TextField
+        value={queryString}
+        onChange={queryHandler}
+        placeholder="Type here…"
+      />
       <FormControlLabel control={hueSwitch} label="Order by hue" />
       <ColorGrid queryBytes={queryBytes} orderedByHue={orderedByHue} />
     </Stack>
