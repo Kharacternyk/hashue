@@ -13,7 +13,6 @@ import Logo from "../images/logo.svg?react";
 import {Form} from "./form";
 
 export const App = () => {
-  const paperStyle = { m: 2 };
   return (
     <StrictMode>
       <ThemeProvider theme={theme}>
@@ -58,3 +57,5 @@ const fabStyle = {
   background:
     "linear-gradient(-45deg, #2780da, #2780da 50%, #10a540 50%, #10a540)",
 };
+
+const paperStyle = { m: 2 };
