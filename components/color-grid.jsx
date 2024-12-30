@@ -1,4 +1,4 @@
-import {Stack} from "@mui/material";
+import {Box} from "@mui/material";
 import {useEffect, useState} from "react";
 import {toHex} from "../lib/to-hex";
 import {ColorChip} from "./color-chip";
@@ -24,6 +24,7 @@ export const ColorGrid = ({ queryBytes, orderedByHue = false }) => {
           const range = maxChannel - minChannel;
 
           newColors.push({
+            key: i,
             hex: "#" + toHex(rgb).toUpperCase(),
             hue:
               range == 0
@@ -47,28 +48,22 @@ export const ColorGrid = ({ queryBytes, orderedByHue = false }) => {
     }
   }, [queryBytes]);
 
-  const rows = [];
   const orderedColors = orderedByHue
     ? colors.toSorted((x, y) => x.hue - y.hue)
     : colors;
+  const chips = orderedColors.map(({ key, hex }) => (
+    <ColorChip color={hex} key={key} />
+  ));
 
-  for (let i = 0; i < colors.length - 2; i += 3) {
-    const row = orderedColors
-      .slice(i, i + 3)
-      .map(({ hex }, i) => <ColorChip color={hex} key={i} />);
-
-    rows.push(
-      <Stack direction="row" key={i}>
-        {row}
-      </Stack>
-    );
-  }
-
-  return <Stack>{rows}</Stack>;
+  return (
+    <Box display="grid" gridTemplateColumns="1fr 1fr 1fr">
+      {chips}
+    </Box>
+  );
 };
 
 const defaultColors = [];
 
 for (let i = 0; i < 30; ++i) {
-  defaultColors.push({ hex: "#000000", hue: 0 });
+  defaultColors.push({ hex: "#000000", hue: 0, key: i });
 }
