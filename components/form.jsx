@@ -1,9 +1,4 @@
-import {
-  FormControlLabel,
-  Stack,
-  Switch,
-  TextField
-} from "@mui/material";
+import {FormControlLabel, Stack, Switch, TextField} from "@mui/material";
 import {useCallback, useState} from "react";
 import {Helmet} from "react-helmet";
 import {useColorQuery} from "../hooks/use-color-query";
@@ -15,10 +10,10 @@ export const Form = () => {
   const [orderedByHue, setOrderedByHue] = useState(false);
   const queryHandler = useCallback((event) => {
     setQueryString(event.target.value);
-  });
-  const hueHandler = useCallback((event) =>
-    setOrderedByHue(event.target.checked)
-  );
+  }, []);
+  const hueHandler = useCallback((event) => {
+    setOrderedByHue(event.target.checked);
+  }, []);
   const title = (trimmedQueryString && `${trimmedQueryString} | `) + "Hashue";
 
   const hueSwitch = <Switch checked={orderedByHue} onChange={hueHandler} />;
